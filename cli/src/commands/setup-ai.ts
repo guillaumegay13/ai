@@ -18,6 +18,7 @@ interface SetupAiResult {
   assistant_name: string;
   phone_number: string;
   phone_number_id: string;
+  texml_app_id: string;
   test_command: string;
   ready: boolean;
   steps: StepResult[];
@@ -96,9 +97,8 @@ export async function setupAiCommand(flags: Record<string, string | boolean>): P
 
       // Assign the number via REST, like setup-voice (AIF-329: the Go CLI's
       // `phone-numbers update` doesn't support --force)
-      if (phoneNumberId) {
-        await client.patch(`/phone_numbers/${phoneNumberId}`, { connection_id: texmlAppId });
-      }
+      if (!phoneNumberId) throw new Error("No phone number ID to assign");
+      await client.patch(`/phone_numbers/${phoneNumberId}`, { connection_id: texmlAppId });
       steps.push({ step: 4, name: "Wire assistant to number", status: "completed", detail: `TeXML app: ${texmlAppId}`, elapsedMs: Date.now() - step4Start });
     } catch (err) {
       steps.push({ step: 4, name: "Wire assistant to number", status: "failed", detail: errorMsg(err), elapsedMs: Date.now() - step4Start });
@@ -112,6 +112,7 @@ export async function setupAiCommand(flags: Record<string, string | boolean>): P
       assistant_name: assistantName,
       phone_number: phoneNumber,
       phone_number_id: phoneNumberId,
+      texml_app_id: texmlAppId,
       test_command: testCmd,
       ready: true,
       steps,

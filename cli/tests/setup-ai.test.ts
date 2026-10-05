@@ -126,7 +126,9 @@ describe("setup-ai step 4: wire the number to the assistant's TeXML app", () => 
     assert.ok(patch, "expected a PATCH /phone_numbers/:id");
     assert.equal(patch.path, "/v2/phone_numbers/num_123456");
     assert.deepEqual(patch.body, { connection_id: TEXML_APP_ID });
-    assert.equal(JSON.parse(r.stdout).ready, true);
+    const result = JSON.parse(r.stdout);
+    assert.equal(result.ready, true);
+    assert.equal(result.texml_app_id, TEXML_APP_ID);
   });
 
   it("reads the TeXML app id back when the create response leaves it out", async () => {
@@ -136,5 +138,6 @@ describe("setup-ai step 4: wire the number to the assistant's TeXML app", () => 
     assert.equal(r.status, 0, `expected exit 0, got ${r.status}: ${r.stderr}`);
     assert.ok(captured.some((c) => c.method === "GET" && c.path === `/v2/ai/assistants/${ASSISTANT_ID}`));
     assert.deepEqual(captured.find((c) => c.method === "PATCH")?.body, { connection_id: TEXML_APP_ID });
+    assert.equal(JSON.parse(r.stdout).texml_app_id, TEXML_APP_ID);
   });
 });
