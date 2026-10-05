@@ -1,0 +1,27 @@
+cli/package.json
+  s_407f7069672e09::t_07f66e67624585 11
+cli/src/commands/call-queues.ts
+  s_407f7069672e09::t_33a8934c2d0ebf 1-433
+cli/src/commands/capabilities.ts
+  s_407f7069672e09::t_c727f2dafc0925 26,202-207
+cli/src/index.ts
+  s_407f7069672e09::t_18bbb9857c1260 84-91,263-268,668-674,1077-1082,1233-1238,1349
+cli/tests/call-queues.test.ts
+  s_407f7069672e09::t_17aadb3a780121 1-297
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "989d74899f6111873197b5027a27bfeb244761d5",
+  "prompts": {},
+  "sessions": {
+    "s_407f7069672e09": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f193fbce-da21-4278-bb83-9d8fd070f102",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Guillaume Gay <guillaume.gay@protonmail.com>"
+    }
+  }
+}
